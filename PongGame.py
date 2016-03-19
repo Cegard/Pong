@@ -22,17 +22,19 @@ class PongGame(Widget):
     
     def on_touch_move(self, touch):
         
-        if touch.x < self.width/3:
+        
+        def update_position(position, player):
             
-            if touch.y >= self.player_1.size[1]/2 \
-                    and touch.y <= self.top-self.player_1.size[1]/2:
-                self.player_1.center_y = touch.y
+            if position >= player.size[1]/2 \
+                    and position <= self.top-player.size[1]/2:
+                player.center_y = position
+        
+        
+        if touch.x < self.width/3:
+            update_position(touch.y, self.player_1)
         
         elif touch.x > (self.width*2)/3:
-            
-            if touch.y >= self.player_2.size[1]/2 \
-                    and touch.y <= self.top-self.player_2.size[1]/2:
-                self.player_2.center_y = touch.y
+            update_position(touch.y, self.player_2)
     
     
     def update(self, dt):
