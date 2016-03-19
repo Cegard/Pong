@@ -42,13 +42,17 @@ class PongGame(Widget):
         self.player_1.bounce_ball(self.ball)
         self.player_2.bounce_ball(self.ball)
         
+        
+        def update_states(player, velocity):
+            player.score += 1
+            self.serve_ball(velocity)
+        
+        
         if (self.ball.y < 0) or (self.ball.top > self.height):
             self.ball.velocity_y *= -1
         
         if self.ball.x > self.width:
-            self.player_1.score += 1
-            self.serve_ball(vel=(-10,0))
+            update_states(self.player_1, (-10, 0))
         
         elif self.ball.x < self.x:
-            self.player_2.score += 1
-            self.serve_ball(vel=(10,0))
+            update_states(self.player_2, (10, 0))
